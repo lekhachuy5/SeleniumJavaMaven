@@ -4,8 +4,11 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
@@ -49,16 +52,23 @@ public class CommonPageObject extends PageObject {
         WebDriver driver;
         String driverType = prop.getProperty("driver.type");
         if (driverType.equals("chrome")) {
-            driver = new ChromeDriver();
+            ChromeOptions options = new ChromeOptions();
+            options.setHeadless(Boolean.parseBoolean(prop.getProperty("driver.headless")));
+            driver = new ChromeDriver(options);
         } else if (driverType.equals("firefox")) {
-            driver = new FirefoxDriver();
+            FirefoxOptions options = new FirefoxOptions();
+            options.setHeadless(Boolean.parseBoolean(prop.getProperty("driver.headless")));
+            driver = new FirefoxDriver(options);
         } else {
-            driver = new EdgeDriver();
+            EdgeOptions options = new EdgeOptions();
+            options.setHeadless(Boolean.parseBoolean(prop.getProperty("driver.headless")));
+            driver = new EdgeDriver(options);
         }
         return driver;
     }
 
-    public void startWeb() throws Exception {
+    public void closeWeb() throws Exception {
+        edriver.close();
     }
 
 }
