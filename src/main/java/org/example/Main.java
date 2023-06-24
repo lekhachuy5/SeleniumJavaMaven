@@ -4,6 +4,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import jdk.jfr.Timespan;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -20,14 +21,17 @@ import java.util.Properties;
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
+
     public static void main(String[] args) throws IOException, InterruptedException {
 
-//        var wait = new WebDriverWait(dr, Duration.ofSeconds(10));
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='sc-124al1g-2 dwOYCh']//button[@class='sc-124al1g-0 jCsgpZ']")));
-//        var button = dr.findElement(By.xpath("//div[@class='sc-124al1g-2 dwOYCh']//button[@class='sc-124al1g-0 jCsgpZ']"));
-//        wait.until(ExpectedConditions.elementToBeClickable(button));
-//        button.click();
-
-//                dr.quit();
+        ChromeDriver driver = new ChromeDriver();
+        driver.get("https://computer-database.gatling.io/computers");
+//
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(20));
+ //
+        WebElement btnFilter = driver.findElement(By.xpath("//input[@id='searchsubmit']"));
+        wait.until(ExpectedConditions.visibilityOf(btnFilter));
+        wait.until(ExpectedConditions.elementToBeClickable(btnFilter));
+                btnFilter.click();
     }
 }
